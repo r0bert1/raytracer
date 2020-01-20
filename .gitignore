@@ -1,2 +1,3 @@
-.idea/
-raytracer.iml
+.idea
+.gradle
+build
