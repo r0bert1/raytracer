@@ -5,10 +5,10 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        int rows = 200;
         int cols = 400;
+        int rows = 200;
 
-        final BufferedImage image = new BufferedImage(cols, rows, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(cols, rows, BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 double r = (double) x / (double) cols;
