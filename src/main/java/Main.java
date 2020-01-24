@@ -10,7 +10,7 @@ public class Main {
      * the sphere equation, which eventually yields
      *      t*t*(b*b) + 2*t*(b*b-c) + (a-c)*(a-c) - r*r = 0
      * where b is the direction vector of the ray, a is the position vector of
-     * the ray's source, C is the center of the circle and R is the radius of
+     * the ray's source, c is the center of the circle and r is the radius of
      * the sphere.
      *
      * @param center Position of sphere center
