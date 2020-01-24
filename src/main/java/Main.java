@@ -1,8 +1,8 @@
 import java.io.*;
 
 public class Main {
-    final static int width = 200;
-    final static int height = 100;
+    final static int WIDTH = 200;
+    final static int HEIGHT = 100;
 
     /**
      * Checks if ray (equation: p(t) = a + t*b) intersects the specified
@@ -79,10 +79,10 @@ public class Main {
     public static void writeImageToFile(String fileName) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-            writer.write("P3\n" + width + " " + height + "\n255\n");
+            writer.write("P3\n" + WIDTH + " " + HEIGHT + "\n255\n");
 
-            for (int y = height - 1; y >= 0; y--) {
-                for (int x = 0; x < width; x++) {
+            for (int y = HEIGHT - 1; y >= 0; y--) {
+                for (int x = 0; x < WIDTH; x++) {
                     Ray ray = new Ray(new Vector(0, 0, 0), rayDirection(x, y));
                     Vector colorVector = colorOf(ray);
                     // RGB values are scaled to match the range of the .ppm file
