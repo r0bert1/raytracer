@@ -1,21 +1,9 @@
 public class Ray {
-    Vector A;
-    Vector B;
+    Vector source;
+    Vector direction;
 
-    public Ray(Vector a, Vector b) {
-        this.A = a;
-        this.B = b;
-    }
-
-    public Vector origin() {
-        return A;
-    }
-
-    public Vector direction() {
-        return B;
-    }
-
-    public Vector pointAtParameter(double t) {
-        return A.add(B.multiplyBy(t));
+    public Ray(Vector source, Vector direction) {
+        this.source = source;
+        this.direction = direction;
     }
 }
