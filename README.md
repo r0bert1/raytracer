@@ -1,6 +1,6 @@
 # raytracer
 
-Määrittelydokumentti: <https://github.com/r0bert1/raytracer/blob/master/docs/maarittelydokumentti.md>
+[Määrittelydokumentti](https://github.com/r0bert1/raytracer/blob/master/docs/maarittelydokumentti.md)
 
 Viikkoraportit:
 
