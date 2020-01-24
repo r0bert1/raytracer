@@ -17,6 +17,10 @@ public class Vector {
         return new Vector(x + v.x, y + v.y, z + v.z);
     }
 
+    public Vector subtract(Vector v) {
+        return new Vector(x - v.x, y - v.y, z - v.z);
+    }
+
     public Vector multiplyBy(double k) {
         return new Vector(x * k, y * k, z * k);
     }
