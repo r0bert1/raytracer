@@ -9,10 +9,6 @@ public class Vector {
         this.z = z;
     }
 
-    public double magnitude() {
-        return Math.sqrt(this.dot(this));
-    }
-
     public Vector add(Vector v) {
         return new Vector(x + v.x, y + v.y, z + v.z);
     }
@@ -23,6 +19,10 @@ public class Vector {
 
     public Vector multiplyBy(double k) {
         return new Vector(x * k, y * k, z * k);
+    }
+
+    public double magnitude() {
+        return Math.sqrt(this.dot(this));
     }
 
     public double dot(Vector v) {
