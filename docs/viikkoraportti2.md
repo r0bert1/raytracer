@@ -6,3 +6,5 @@ paljon yleisesti tietokonegrafiikasta, jonka lisäksi .ppm kuvaformaatti tuli tu
 
 Ensi viikon aloitan tekemällä testejä, koska en niitä vielä tällä viikolla ehtinyt tekemään. Seuraava askel renderöinnissä voisi olla
 maan/lattian renderöinti. Myös varjostus täytyisi lisätä, jotta pallo oikeasti näyttäisi 3D-kappaleelta.
+
+Käytetty aika: 20h
