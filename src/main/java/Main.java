@@ -35,10 +35,11 @@ public class Main {
     }
 
     /**
-     * Determines the color seen along the provided ray. The color will be set
-     * to red if the ray intersects the sphere, and otherwise the color is set
-     * to a shade of blue depending on it's height on the screen to create a
-     * fading blue background.
+     * Determines the color seen along the provided ray. The color values will
+     * be mapped from the components of the normal vector at the point of
+     * intersection e.g. normal.x = red. In case of no intersection the color
+     * is set to a shade of blue depending on it's height on the screen to
+     * create a fading blue background.
      *
      * @param ray The ray whose color will be determined
      * @return    A 'color vector' where vector.x = red, vector.y = green etc.
@@ -47,8 +48,10 @@ public class Main {
         double t = intersectsSphere(new Vector(0, 0 , -1), 0.5, ray);
         if (t > 0) {
             Vector normal = (ray.pointAt(t).subtract(new Vector(0, 0, -1))).normalize();
+            // mapping each color value to the interval from 0 to 1
             return new Vector(normal.x + 1, normal.y + 1, normal.z + 1).multiplyBy(0.5);
         }
+        // background
         Vector unitVector = ray.direction.normalize();
         t = 0.5 * (unitVector.y + 1.0);
         return new Vector(1.0, 1.0, 1.0).multiplyBy(1.0 - t)
