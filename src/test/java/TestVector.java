@@ -38,5 +38,8 @@ public class TestVector {
         assertEquals(3.741, v1.magnitude(), 0.001);
     }
 
-
+    @Test
+    public void testNormalizing() {
+        assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), v1.normalize());
+    }
 }
