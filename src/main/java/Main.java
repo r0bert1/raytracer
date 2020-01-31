@@ -11,20 +11,27 @@ public class Main {
      *      t*t*(b*b) + 2*t*(b*b-c) + (a-c)*(a-c) - r*r = 0
      * where b is the direction vector of the ray, a is the position vector of
      * the ray's source, c is the center of the circle and r is the radius of
-     * the sphere.
+     * the sphere. This equation is then solved with respect to t and the
+     * discriminant is used to check if there are intersections i.e. the
+     * discriminant is positive.
      *
      * @param center Position of sphere center
      * @param radius Radius of sphere
      * @param ray    The examined ray
-     * @return       true if ray intersects sphere, otherwise false
+     * @return       If the discriminant is positive then the parameter t
+     *               at which the ray intersects the sphere, otherwise -1
      */
-    public static Boolean intersectsSphere(Vector center, double radius, Ray ray) {
+    public static double intersectsSphere(Vector center, double radius, Ray ray) {
         Vector offsetOrigin = ray.source.subtract(center);
         double a = ray.direction.dot(ray.direction);
         double b = 2.0 * offsetOrigin.dot(ray.direction);
         double c = offsetOrigin.dot(offsetOrigin) - (radius * radius);
         double discriminant = b * b - 4 * a * c;
-        return discriminant > 0;
+        if (discriminant < 0) {
+            return -1;
+        } else {
+            return (-b - Math.sqrt(discriminant)) / (2 * a);
+        }
     }
 
     /**
@@ -37,11 +44,13 @@ public class Main {
      * @return    A 'color vector' where vector.x = red, vector.y = green etc.
      */
     public static Vector colorOf(Ray ray) {
-        if (intersectsSphere(new Vector(0, 0, -1), 0.5, ray)) {
-            return new Vector(1, 0, 0);
+        double t = intersectsSphere(new Vector(0, 0 , -1), 0.5, ray);
+        if (t > 0) {
+            Vector normal = (ray.pointAt(t).subtract(new Vector(0, 0, -1))).normalize();
+            return new Vector(normal.x + 1, normal.y + 1, normal.z + 1).multiplyBy(0.5);
         }
         Vector unitVector = ray.direction.normalize();
-        double t = 0.5 * (unitVector.y + 1.0);
+        t = 0.5 * (unitVector.y + 1.0);
         return new Vector(1.0, 1.0, 1.0).multiplyBy(1.0 - t)
                 .add(new Vector(0.5, 0.7, 1.0).multiplyBy(t));
     }
@@ -72,7 +81,7 @@ public class Main {
     }
 
     /**
-     * Writes the image data in plain text to a .ppm file.
+     * Writes the image data to a file in plain ppm format.
      *
      * @param fileName The name of the output file
      */
