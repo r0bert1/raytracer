@@ -6,4 +6,8 @@ public class Ray {
         this.source = source;
         this.direction = direction;
     }
+
+    public Vector pointAt(double t) {
+        return source.add(direction.multiplyBy(t));
+    }
 }
