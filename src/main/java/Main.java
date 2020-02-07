@@ -3,6 +3,7 @@ import java.io.*;
 public class Main {
     final static int WIDTH = 200;
     final static int HEIGHT = 100;
+    final static int SAMPLES = 100;
 
     /**
      * Determines the color seen along the provided ray. The color values will
@@ -49,31 +50,6 @@ public class Main {
     }
 
     /**
-     * Calculates the direction vector of a ray so that it hits the spot on
-     * the screen specified by the x and y arguments.
-     * The ray is initially directed towards the top left corner of the screen
-     * and it's moved around by scaling the offset vectors.
-     *
-     * @param x Specifies the target x coordinate on the screen
-     * @param y Specifies the target y coordinate on the screen
-     * @return  Direction vector of ray
-     */
-    public static Vector rayDirection(int x, int y) {
-        Vector lowerLeftCorner = new Vector(-2.0, -1.0, -1.0);
-        Vector horizontalOffset = new Vector(4.0, 0.0, 0.0);
-        Vector verticalOffset = new Vector(0.0, 2.0, 0.0);
-
-        double hScale = x / (double) 200;
-        double vScale = y / (double) 100;
-
-        return lowerLeftCorner
-                .add(
-                        horizontalOffset.multiplyBy(hScale)
-                                .add(
-                                        verticalOffset.multiplyBy(vScale)));
-    }
-
-    /**
      * Writes the image data to a file in plain ppm format.
      *
      * @param fileName The name of the output file
@@ -87,10 +63,18 @@ public class Main {
             spheres[0] = new Sphere(new Vector(0, 0, -1), 0.5);
             spheres[1] = new Sphere(new Vector(0, -100.5, -1), 100);
 
+            Camera camera = new Camera();
+
             for (int y = HEIGHT - 1; y >= 0; y--) {
                 for (int x = 0; x < WIDTH; x++) {
-                    Ray ray = new Ray(new Vector(0, 0, 0), rayDirection(x, y));
-                    Vector colorVector = colorOf(ray, spheres);
+                    Vector colorVector = new Vector(0, 0, 0);
+                    for (int s = 0; s < SAMPLES; s++) {
+                        double hScale = x / (double) WIDTH;
+                        double vScale = y / (double) HEIGHT;
+                        Ray ray = camera.getRay(hScale, vScale);
+                        colorVector = colorVector.add(colorOf(ray, spheres));
+                    }
+                    colorVector = colorVector.multiplyBy(1 / (double) SAMPLES);
 
                     // RGB values are scaled to match the range of the .ppm file
                     int ir = (int) (255.99 * colorVector.x);
