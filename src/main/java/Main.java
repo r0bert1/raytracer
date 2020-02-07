@@ -5,57 +5,47 @@ public class Main {
     final static int HEIGHT = 100;
 
     /**
-     * Checks if ray (equation: p(t) = a + t*b) intersects the specified
-     * sphere (equation: (p-c)*(p-c) = r*r) by inserting the ray expression in
-     * the sphere equation, which eventually yields
-     *      t*t*(b*b) + 2*t*(b*b-c) + (a-c)*(a-c) - r*r = 0
-     * where b is the direction vector of the ray, a is the position vector of
-     * the ray's source, c is the center of the circle and r is the radius of
-     * the sphere. This equation is then solved with respect to t and the
-     * discriminant is used to check if there are intersections i.e. the
-     * discriminant is positive.
-     *
-     * @param center Position of sphere center
-     * @param radius Radius of sphere
-     * @param ray    The examined ray
-     * @return       If the discriminant is positive then the parameter t
-     *               at which the ray intersects the sphere, otherwise -1
-     */
-    public static double intersectsSphere(Vector center, double radius, Ray ray) {
-        Vector offsetOrigin = ray.source.subtract(center);
-        double a = ray.direction.dot(ray.direction);
-        double b = 2.0 * offsetOrigin.dot(ray.direction);
-        double c = offsetOrigin.dot(offsetOrigin) - (radius * radius);
-        double discriminant = b * b - 4 * a * c;
-        if (discriminant < 0) {
-            return -1;
-        } else {
-            return (-b - Math.sqrt(discriminant)) / (2 * a);
-        }
-    }
-
-    /**
      * Determines the color seen along the provided ray. The color values will
      * be mapped from the components of the normal vector at the point of
-     * intersection e.g. normal.x = red. In case of no intersection the color
+     * intersection e.g. normal.x = red. In case of no hit the color
      * is set to a shade of blue depending on it's height on the screen to
      * create a fading blue background.
      *
      * @param ray The ray whose color will be determined
      * @return    A 'color vector' where vector.x = red, vector.y = green etc.
      */
-    public static Vector colorOf(Ray ray) {
-        double t = intersectsSphere(new Vector(0, 0 , -1), 0.5, ray);
-        if (t > 0) {
-            Vector normal = (ray.pointAt(t).subtract(new Vector(0, 0, -1))).normalize();
-            // mapping each color value to the interval from 0 to 1
-            return new Vector(normal.x + 1, normal.y + 1, normal.z + 1).multiplyBy(0.5);
+    public static Vector colorOf(Ray ray, Sphere[] spheres) {
+        Hit hit = hit(spheres, ray, 0.0, Double.MAX_VALUE);
+        if (hit != null) {
+            return new Vector(hit.normal.x + 1, hit.normal.y + 1, hit.normal.z + 1).multiplyBy(0.5);
+        } else {
+            Vector unitVector = ray.direction.normalize();
+            double t = 0.5 * (unitVector.y + 1.0);
+            return new Vector(1.0, 1.0, 1.0).multiplyBy(1.0 - t)
+                    .add(new Vector(0.5, 0.7, 1.0).multiplyBy(t));
         }
-        // background
-        Vector unitVector = ray.direction.normalize();
-        t = 0.5 * (unitVector.y + 1.0);
-        return new Vector(1.0, 1.0, 1.0).multiplyBy(1.0 - t)
-                .add(new Vector(0.5, 0.7, 1.0).multiplyBy(t));
+    }
+
+    /**
+     * Goes through every sphere in the list and checks if the ray hits it.
+     *
+     * @param spheres Spheres in the scene
+     * @param ray     The examined ray
+     * @param tMin    Minimum threshold for the hit to count
+     * @param tMax    Maximum threshold for the hit to count
+     * @return        Hit object of the nearest hit
+     */
+    public static Hit hit(Sphere[] spheres, Ray ray, double tMin, double tMax) {
+        double closest = tMax;
+        Hit hit = null;
+        for (Sphere sphere : spheres) {
+            Hit temp = sphere.hitBy(ray, tMin, closest);
+            if (temp != null) {
+                closest = temp.t;
+                hit = temp;
+            }
+        }
+        return hit;
     }
 
     /**
@@ -93,10 +83,15 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             writer.write("P3\n" + WIDTH + " " + HEIGHT + "\n255\n");
 
+            Sphere[] spheres = new Sphere[2];
+            spheres[0] = new Sphere(new Vector(0, 0, -1), 0.5);
+            spheres[1] = new Sphere(new Vector(0, -100.5, -1), 100);
+
             for (int y = HEIGHT - 1; y >= 0; y--) {
                 for (int x = 0; x < WIDTH; x++) {
                     Ray ray = new Ray(new Vector(0, 0, 0), rayDirection(x, y));
-                    Vector colorVector = colorOf(ray);
+                    Vector colorVector = colorOf(ray, spheres);
+
                     // RGB values are scaled to match the range of the .ppm file
                     int ir = (int) (255.99 * colorVector.x);
                     int ig = (int) (255.99 * colorVector.y);
