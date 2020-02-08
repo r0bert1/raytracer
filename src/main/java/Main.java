@@ -1,9 +1,11 @@
 import java.io.*;
+import java.util.Random;
 
 public class Main {
-    final static int WIDTH = 200;
-    final static int HEIGHT = 100;
+    final static int WIDTH = 400;
+    final static int HEIGHT = 200;
     final static int SAMPLES = 100;
+    static Random random = new Random();
 
     /**
      * Determines the color seen along the provided ray. The color values will
@@ -69,8 +71,8 @@ public class Main {
                 for (int x = 0; x < WIDTH; x++) {
                     Vector colorVector = new Vector(0, 0, 0);
                     for (int s = 0; s < SAMPLES; s++) {
-                        double hScale = x / (double) WIDTH;
-                        double vScale = y / (double) HEIGHT;
+                        double hScale = (x + random.nextDouble()) / (double) WIDTH;
+                        double vScale = (y + random.nextDouble()) / (double) HEIGHT;
                         Ray ray = camera.getRay(hScale, vScale);
                         colorVector = colorVector.add(colorOf(ray, spheres));
                     }
