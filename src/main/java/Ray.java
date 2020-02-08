@@ -10,4 +10,8 @@ public class Ray {
     public Vector pointAt(double t) {
         return source.add(direction.multiplyBy(t));
     }
+
+    public String toString() {
+        return "s: " + source + ", d: " + direction;
+    }
 }
