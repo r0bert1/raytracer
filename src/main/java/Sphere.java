@@ -31,20 +31,22 @@ public class Sphere {
         double c = offsetOrigin.dot(offsetOrigin) - (radius * radius);
         double discriminant = b * b - 4 * a * c;
         if (discriminant > 0) {
-            Hit hit = new Hit();
             double t = (-b - Math.sqrt(discriminant)) / (2 * a);
             if (t < tMax && t > tMin) {
-                hit.position = ray.pointAt(t);
-                hit.normal = (hit.position.subtract(center)).multiplyBy(1 / radius);
-                return hit;
+                return createHit(ray, t);
             }
             t = (-b + Math.sqrt(discriminant)) / (2 * a);
             if (t < tMax && t > tMin) {
-                hit.position = ray.pointAt(t);
-                hit.normal = (hit.position.subtract(center)).multiplyBy(1 / radius);
-                return hit;
+                return createHit(ray, t);
             }
         }
         return null;
+    }
+
+    private Hit createHit(Ray ray, double t) {
+        Hit hit = new Hit();
+        hit.position = ray.pointAt(t);
+        hit.normal = (hit.position.subtract(center)).multiplyBy(1 / radius);
+        return hit;
     }
 }
