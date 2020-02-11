@@ -17,8 +17,12 @@ public class Hit {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Hit hit = (Hit) o;
         return Double.compare(hit.t, t) == 0 &&
                 position.equals(hit.position) &&
