@@ -1,5 +1,7 @@
 # raytracer
 
+[![CircleCI](https://circleci.com/gh/r0bert1/raytracer.svg?style=svg)](https://circleci.com/gh/r0bert1/raytracer)
+
 [Määrittelydokumentti](https://github.com/r0bert1/raytracer/blob/master/docs/maarittelydokumentti.md)
 
 Viikkoraportit:
