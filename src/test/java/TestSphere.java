@@ -22,6 +22,6 @@ public class TestSphere {
     public void rayToUpperLeftCornerDoesNotIntersectSphere() {
         Ray ray = new Ray(new Vector(0, 0, 0), new Vector(-2, 1, -1));
         Hit result = sphere.hitBy(ray, 0, Double.MAX_VALUE);
-        assertEquals(null, result);
+        assertNull(result);
     }
 }
