@@ -34,3 +34,5 @@ Testit ajetaan komennolla
 ```
 ./gradlew test
 ```
+
+(Käytä windowsilla gradlew.bat ./gradlew sijaan)
