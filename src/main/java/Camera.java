@@ -19,13 +19,10 @@ public class Camera {
      *
      * @param hScale Specifies the target x coordinate on the screen
      * @param vScale Specifies the target y coordinate on the screen
-     * @return  Direction vector of ray
+     * @return       Ray starting from origin and directed according to
+     *               horizontal and vertical scale factors.
      */
     public Ray getRay(double hScale, double vScale) {
-        Vector lowerLeftCorner = new Vector(-2.0, -1.0, -1.0);
-        Vector horizontalOffset = new Vector(4.0, 0.0, 0.0);
-        Vector verticalOffset = new Vector(0.0, 2.0, 0.0);
-
         Vector rayDirection = lowerLeftCorner
                 .add(
                         horizontalOffset.multiplyBy(hScale)
