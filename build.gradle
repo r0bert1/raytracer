@@ -5,10 +5,6 @@ plugins {
     id 'jacoco'
 }
 
-jacoco {
-    toolVersion = '0.8.5'
-}
-
 group 'org.example'
 version '1.0-SNAPSHOT'
 
