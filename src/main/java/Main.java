@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.Random;
 
 public class Main {
-    final static int WIDTH = 400;
-    final static int HEIGHT = 200;
+    final static int WIDTH = 800;
+    final static int HEIGHT = 400;
     final static int SAMPLES = 100;
     static Random random = new Random();
 
