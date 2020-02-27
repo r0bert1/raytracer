@@ -42,4 +42,19 @@ public class TestVector {
     public void testNormalizing() {
         assertEquals(new Vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732), v1.normalize());
     }
+
+    @Test
+    public void equalsReturnsFalseForDifferentVectors() {
+        assertNotEquals(v1, v2);
+    }
+
+    @Test
+    public void equalsReturnsTrueForIdenticalVectors() {
+        assertEquals(v1, new Vector(1, 2, 3));
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals("(1.0, 2.0, 3.0)", v1.toString());
+    }
 }
