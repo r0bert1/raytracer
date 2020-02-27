@@ -20,6 +20,6 @@ public class TestHit {
 
     @Test
     public void equalsReturnsTrueForIdenticalHits() {
-        assertEquals(hit1, new Hit(new Vector (1, 1, 1), new Vector(1, 1, 1)));
+        assertEquals(hit1, new Hit(new Vector(1, 1, 1), new Vector(1, 1, 1)));
     }
 }
