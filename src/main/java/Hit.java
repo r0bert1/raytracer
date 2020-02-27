@@ -11,11 +11,6 @@ public class Hit {
     }
 
     @Override
-    public String toString() {
-        return "p: " + position + ", n: " + normal;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
