@@ -14,8 +14,9 @@ public class Main {
      * is set to a shade of blue depending on it's height on the screen to
      * create a fading blue background.
      *
-     * @param ray The ray whose color will be determined
-     * @return    A 'color vector' where vector.x = red, vector.y = green etc.
+     * @param ray     The ray whose color will be determined
+     * @param spheres The spheres in the scene
+     * @return        A 'color vector' where vector.x = red, vector.y = green etc.
      */
     public static Vector colorOf(Ray ray, Sphere[] spheres) {
         Hit hit = hit(spheres, ray, 0.001, Double.MAX_VALUE);
@@ -52,10 +53,18 @@ public class Main {
         return hit;
     }
 
+    /**
+     * Finds random point in unit sphere by picking random point in unit cube
+     * and checking if it's inside the unit sphere. If not, a new point is
+     * picked.
+     *
+     * @return Random point in unit sphere
+     */
     public static Vector randomPointFromUnitSphere() {
         Vector point;
         do {
             point = new Vector(random.nextDouble(), random.nextDouble(), random.nextDouble())
+                    // transform point coordinates to the -1 to +1 range
                     .multiplyBy(2)
                     .subtract(new Vector(1, 1, 1));
         } while (point.dot(point) >= 1);
