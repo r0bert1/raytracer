@@ -25,6 +25,8 @@
 
 [Viikko 5](https://github.com/r0bert1/raytracer/blob/master/docs/viikkoraportti5.md)
 
+[Viikko 6](https://github.com/r0bert1/raytracer/blob/master/docs/viikkoraportti6.md)
+
 ## Käyttöohje
 
 Suorita juurikansiossa ensin
